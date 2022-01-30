@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+
+  php:
+    build: .
+    container_name: php-app-8
+    working_dir: /var/www/pfa
+    volumes:
+      - ./pfa:/var/www/pfa
+    networks:
+      - app-network
+
+  web:
+    image: nginx:alpine
+    container_name: web-app
+    ports:
+      - "8000:80"
+    volumes:
+      - ./pfa:/var/www/pfa
+      - ./nginx/enabled:/etc/nginx/conf.d
+      - ./nginx/snippets:/nginx/snippets
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
