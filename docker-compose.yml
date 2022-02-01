@@ -23,6 +23,16 @@ services:
     networks:
       - app-network
 
+  db:
+    image: mariadb
+    container_name: db-app
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./mariadb:/var/lib/mysql
+
 networks:
   app-network:
     driver: bridge
