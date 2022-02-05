@@ -17,5 +17,8 @@ RUN docker-php-ext-install gd
 RUN apt-get install -y libzip-dev
 RUN docker-php-ext-install zip
 
+# Install MySql-Driver for MariaDb
+RUN docker-php-ext-install pdo pdo_mysql
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
