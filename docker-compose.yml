@@ -3,8 +3,9 @@ version: '3.8'
 services:
 
   php:
-    build: .
-    container_name: php-app-8
+    build:
+      dockerfile: DockerfilePhp
+    container_name: php-app
     working_dir: /var/www/pfa
     volumes:
       - ./pfa:/var/www/pfa
@@ -14,7 +15,8 @@ services:
       - app-network
 
   web:
-    image: nginx:alpine
+    build:
+      dockerfile: DockerfileWeb
     container_name: web-app
     ports:
       - "8000:80"
@@ -22,6 +24,8 @@ services:
       - ./pfa:/var/www/pfa
       - ./nginx/enabled:/etc/nginx/conf.d
       - ./nginx/snippets:/nginx/snippets
+    depends_on:
+      - node
     networks:
       - app-network
 
